@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Nigura Ka-Kuru | Developer CV</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Pixel / tech style fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@300;400;600&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            --bg: #050816;
+            --bg-alt: #0b1020;
+            --neon-cyan: #00f3ff;
+            --neon-magenta: #ff00ff;
+            --neon-yellow: #f5ff6b;
+            --text-main: #e5e7eb;
+            --text-muted: #9ca3af;
+            --card-border: #1f2933;
+            --accent: #3b82f6;
+        }
+
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top, #111827 0, #020617 50%, #000 100%);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* === Neon scanline overlay (subtle CRT vibe) === */
+        body::before {
+            content: "";
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px,
+                    transparent 1px);
+            background-size: 100% 2px;
+            mix-blend-mode: soft-light;
+            opacity: 0.25;
+            z-index: -1;
+        }
+
+        /* === Layout === */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(16px);
+            background: linear-gradient(to bottom,
+                    rgba(15, 23, 42, 0.92),
+                    rgba(15, 23, 42, 0.7),
+                    transparent);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .nav {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: "Press Start 2P", system-ui;
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 8px rgba(0, 243, 255, 0.9);
+        }
+
+        .nav-links a {
+            margin-left: 18px;
+            font-size: 14px;
+            text-decoration: none;
+            color: var(--text-muted);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+            transition: width 0.2s ease-out;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 18px 60px;
+        }
+
+        /* === Hero Section === */
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+            gap: 32px;
+            align-items: center;
+            padding: 30px 0 60px;
+        }
+
+        @media (max-width: 800px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hero-title {
+            font-family: "Press Start 2P", system-ui;
+            font-size: 16px;
+            color: var(--neon-yellow);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 44px);
+            margin: 0 0 14px;
+            line-height: 1.15;
+        }
+
+        .hero h1 span {
+            background-image: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 12px rgba(0, 243, 255, 0.6);
+        }
+
+        .hero-sub {
+            color: var(--text-muted);
+            max-width: 520px;
+            font-size: 15px;
+        }
+
+        .hero-meta {
+            margin-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 20px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .hero-meta span {
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .hero-meta span::before {
+            content: "▹";
+            position: absolute;
+            left: -2px;
+            color: var(--neon-cyan);
+            font-size: 12px;
+        }
+
+        .hero-buttons {
+            margin-top: 22px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .btn {
+            border-radius: 999px;
+            padding: 9px 18px;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            background: radial-gradient(circle at top left, #111827, #020617);
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 0 12px rgba(15, 23, 42, 0.8);
+            transition: transform 0.15s ease-out, box-shadow 0.15s ease-out,
+                border-color 0.15s ease-out;
+        }
+
+        .btn-primary {
+            border-color: transparent;
+            background: linear-gradient(135deg,
+                    rgba(0, 243, 255, 0.15),
+                    rgba(255, 0, 255, 0.18));
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.45);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 24px rgba(0, 0, 0, 0.9);
+            border-color: var(--neon-cyan);
+        }
+
+        .pixel-avatar-wrap {
+            justify-self: center;
+            justify-items: center;
+            align-items: center;
+            padding: 12px;
+            border-radius: 50%;
+            background: radial-gradient(circle at top, #1f2937, #020617);
+            box-shadow: 0 0 18px rgba(0, 243, 255, 0.5),
+                0 0 30px rgba(255, 0, 255, 0.35);
+            border: 2px solid rgba(148, 163, 184, 0.6);
+        }
+
+        .pixel-avatar {
+            width: 215px;
+            height: 215px;
+            border-radius: 50%;
+            image-rendering: pixelated;
+            object-fit: cover;
+        }
+
+        .avatar-caption {
+            margin-top: 10px;
+            font-size: 11px;
+            text-align: center;
+            color: var(--text-muted);
+            font-family: "Press Start 2P", system-ui;
+        }
+
+
+        /* === Sections === */
+
+        section {
+            margin-bottom: 56px;
+        }
+
+        /* Better list spacing globally */
+        section ul,
+        section ol {
+            margin: 12px 0 12px 20px;
+            padding-left: 16px;
+        }
+
+        section li {
+            margin-bottom: 6px;
+            line-height: 1.55;
+        }
+
+        /* Fix tight subtitles (muted paragraphs under titles) */
+        .muted {
+            margin: 6px 0 10px;
+            display: block;
+        }
+
+        .section-title {
+            font-family: "Press Start 2P", system-ui;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--neon-cyan);
+        }
+
+        .section-title::before {
+            content: "";
+            width: 34px;
+            height: 1px;
+            background: linear-gradient(90deg,
+                    var(--neon-cyan),
+                    var(--neon-magenta),
+                    transparent);
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.7);
+        }
+
+        .section-card {
+            background: linear-gradient(145deg, #020617, #020617, #020617);
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            padding: 18px 18px 20px;
+            box-shadow: 0px 0px 30px rgba(15, 23, 42, 0.9);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-card::after {
+            content: "";
+            position: absolute;
+            inset: -40%;
+            background: conic-gradient(from 180deg,
+                    rgba(0, 243, 255, 0.02),
+                    rgba(255, 0, 255, 0.07),
+                    rgba(0, 243, 255, 0.02));
+            opacity: 0.4;
+            mix-blend-mode: soft-light;
+            pointer-events: none;
+        }
+
+        .section-content p {
+            margin: 8px 0 12px;
+        }
+
+        .section-content ul {
+            margin-left: 20px;
+            margin-top: 4px;
+        }
+
+
+        .section-content {
+            position: relative;
+            z-index: 1;
+            font-size: 14px;
+            color: var(--text-main);
+        }
+
+        .muted {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* === Skills Grid === */
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 14px;
+            margin-top: 6px;
+        }
+
+        .skill-pill {
+            border-radius: 12px;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            padding: 10px 11px;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: radial-gradient(circle at top left, #020617, #020617);
+        }
+
+        .skill-pill span.label {
+            font-weight: 500;
+        }
+
+        .skill-pill span.level {
+            font-size: 11px;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+        }
+
+        /* === Experience === */
+
+        .timeline {
+            margin-top: 8px;
+            border-left: 1px dashed rgba(148, 163, 184, 0.4);
+            padding-left: 16px;
+        }
+
+        .timeline-item p {
+            margin-top: 6px;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -9px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            background: radial-gradient(circle, var(--neon-cyan), var(--neon-magenta));
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.9);
+        }
+
+        .timeline-title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .timeline-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        /* === Projects === */
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 6px;
+        }
+
+        .project-card {
+            border-radius: 14px;
+            border: 1px solid var(--card-border);
+            padding: 14px 14px 16px;
+            background: radial-gradient(circle at top left, #020617, #020617);
+            position: relative;
+            overflow: hidden;
+            font-size: 13px;
+        }
+
+        .project-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg,
+                    rgba(0, 243, 255, 0.12),
+                    transparent 30%,
+                    rgba(255, 0, 255, 0.12));
+            mix-blend-mode: soft-light;
+            opacity: 0;
+            transition: opacity 0.2s ease-out;
+            pointer-events: none;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .project-tags {
+            margin-top: 6px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--neon-cyan);
+        }
+
+        .project-link {
+            margin-top: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--neon-magenta);
+            text-decoration: none;
+        }
+
+        .project-link span.icon {
+            font-size: 13px;
+        }
+
+        /* === Contact === */
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 2.5fr) minmax(0, 1.7fr);
+            gap: 20px;
+            align-items: flex-start;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 800px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .contact-note {
+            font-size: 14px;
+        }
+
+        .contact-meta {
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        .contact-meta div {
+            margin-bottom: 4px;
+        }
+
+        .contact-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border-radius: 999px;
+            padding: 6px 10px;
+            border: 1px dashed rgba(148, 163, 184, 0.6);
+            font-size: 11px;
+            margin-top: 8px;
+            color: var(--neon-yellow);
+            font-family: "Press Start 2P", system-ui;
+        }
+
+        /* === Scroll reveal animation === */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.45s ease-out, transform 0.45s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        footer {
+            text-align: center;
+            padding: 18px 16px 26px;
+            font-size: 11px;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(31, 41, 55, 0.8);
+            margin-top: 10px;
+        }
+
+        footer span {
+            color: var(--neon-cyan);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="nav">
+            <div class="logo">NIGURA // DEV</div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="reveal">
+                <div class="hero-title">Digital CV · Dark Mode</div>
+                <h1>I'm <span>Nigura Ka-Kuru</span>,<br />a developer in training.</h1>
+                <p class="hero-sub">
+                    Curious mind, small steps, consistent progress. I’m learning the
+                    fundamentals of software development and building small projects to
+                    sharpen my skills and break things in the best possible way.
+                </p>
+                <div class="hero-meta">
+                    <span>Role: Junior / Learning Developer</span>
+                    <span>Focus: Web & tooling experiments</span>
+                    <span>Mindset: Learn · Build · Repeat</span>
+                </div>
+                <div class="hero-buttons">
+                    <a class="btn btn-primary" href="#projects">View Projects</a>
+                    <a class="btn" href="https://github.com/NiguraKaKuru" target="_blank">GitHub Profile ↗</a>
+                </div>
+            </div>
+
+            <div class="pixel-avatar-wrap reveal">
+                <img src="download.jpeg" alt="Profile photo of Nigura Ka-Kuru" class="pixel-avatar" />
+            </div>
+        </section>
+
+        <!-- About -->
+        <section id="about" class="reveal">
+            <h2 class="section-title">About Me</h2>
+            <div class="section-card">
+                <div class="section-content">
+                    <p>
+                        I’m a beginner developer exploring programming concepts, tools, and
+                        best practices. I enjoy turning ideas into small apps, scripts, and
+                        prototypes while I build a solid foundation in coding.
+                    </p>
+                    <p class="muted">
+                        Right now, my main goals are:
+                    </p>
+                    <ul class="muted">
+                        <li>Strengthen my understanding of core programming fundamentals</li>
+                        <li>Get comfortable with version control and collaboration workflows</li>
+                        <li>Ship small but complete projects and learn from feedback</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section id="skills" class="reveal">
+            <h2 class="section-title">Skills & Stack (Growing)</h2>
+            <div class="section-card">
+                <div class="section-content">
+                    <p class="muted">
+                        These are technologies and concepts I’m either learning now or have
+                        started using in small projects:
+                    </p>
+
+                    <div class="skills-grid">
+                        <div class="skill-pill">
+                            <span class="label">HTML · CSS</span>
+                            <span class="level">Learning</span>
+                        </div>
+                        <div class="skill-pill">
+                            <span class="label">JavaScript Basics</span>
+                            <span class="level">Learning</span>
+                        </div>
+                        <div class="skill-pill">
+                            <span class="label">Git & GitHub</span>
+                            <span class="level">Comfortable</span>
+                        </div>
+                        <div class="skill-pill">
+                            <span class="label">Problem Solving</span>
+                            <span class="level">Growing</span>
+                        </div>
+                        <div class="skill-pill">
+                            <span class="label">Debugging & Reading Errors</span>
+                            <span class="level">Practicing</span>
+                        </div>
+                        <div class="skill-pill">
+                            <span class="label">Learning Mindset</span>
+                            <span class="level">Max</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience -->
+        <section id="experience" class="reveal">
+            <h2 class="section-title">Experience & Education</h2>
+            <div class="section-card">
+                <div class="section-content">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-title">Self-Taught Developer Path</div>
+                            <div class="timeline-meta">2024 – Present · Independent</div>
+                            <p class="muted">
+                                Learning software development through online resources, tutorials,
+                                documentation, and building small experiments. Focusing on the
+                                basics of web development, clean code, and understanding how
+                                things work under the hood.
+                            </p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-title">Personal Projects & GitHub Practice</div>
+                            <div class="timeline-meta">Ongoing</div>
+                            <p class="muted">
+                                Using GitHub as a learning log—tracking progress, pushing tiny
+                                projects, and getting used to pull requests, branches, and
+                                commits with clear messages.
+                            </p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-title">Future Goal</div>
+                            <div class="timeline-meta">Junior Developer Role</div>
+                            <p class="muted">
+                                Looking ahead to contribute to a development team, keep learning
+                                from more experienced developers, and help ship useful software.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section id="projects" class="reveal">
+            <h2 class="section-title">Projects</h2>
+            <div class="section-card">
+                <div class="section-content">
+                    <p class="muted">
+                        A few small ideas and starter projects that represent where I am on
+                        my journey. These can be replaced with real repositories as I build
+                        more things.
+                    </p>
+
+                    <div class="projects-grid">
+                        <div class="project-card">
+                            <div class="project-name">Terminal Portfolio (This Page)</div>
+                            <div class="muted">
+                                A dark, neon-themed profile page using only HTML, CSS, and a bit
+                                of JavaScript. Designed as a personal CV and GitHub landing page.
+                            </div>
+                            <div class="project-tags">HTML · CSS · JS</div>
+                            <!-- Replace # with real GitHub link -->
+                            <a class="project-link" href="#" target="_blank">
+                                <span class="icon">⮑</span> View on GitHub
+                            </a>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-name">Small JS Experiments</div>
+                            <div class="muted">
+                                Collection of tiny JavaScript experiments: counters, themes,
+                                random generators, and UI components built for practice.
+                            </div>
+                            <div class="project-tags">JavaScript · Practice</div>
+                            <a class="project-link" href="#" target="_blank">
+                                <span class="icon">⮑</span> View on GitHub
+                            </a>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-name">Learning Log</div>
+                            <div class="muted">
+                                A simple repository tracking what I learn each week: notes,
+                                snippets, and mini-challenges to stay consistent.
+                            </div>
+                            <div class="project-tags">Markdown · GitHub</div>
+                            <a class="project-link" href="#" target="_blank">
+                                <span class="icon">⮑</span> View on GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="reveal">
+            <h2 class="section-title">Contact & Links</h2>
+            <div class="section-card">
+                <div class="section-content contact-grid">
+                    <div>
+                        <p class="contact-note">
+                            I’m always open to feedback, learning opportunities, and beginner-friendly
+                            collaborations. If you’d like to share advice, resources, or just
+                            say hello, feel free to reach out.
+                        </p>
+                        <div class="contact-chip">STATUS: LEARNING · READY TO LEVEL UP</div>
+                    </div>
+                    <div class="contact-meta">
+                        <div><strong>GitHub:</strong> <a href="https://github.com/yourusername"
+                                target="_blank">github.com/yourusername</a></div>
+                        <div><strong>Location:</strong> Online · Anywhere with Wi-Fi</div>
+                        <div><strong>Focus:</strong> Web development basics, tooling, and clean code</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div>© <span>Nigura Ka-Kuru</span> · Built in dark mode · Press Start to continue…</div>
+    </footer>
+
+    <script>
+        // Scroll reveal using IntersectionObserver
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            {
+                threshold: 0.18,
+            }
+        );
+
+        document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    </script>
+</body>
+
+</html>
